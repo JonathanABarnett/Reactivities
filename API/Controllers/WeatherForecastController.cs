@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]")] // ie. http://localhost:5000/WeatherForecast - This will ignore the Controller portion of the class name
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
