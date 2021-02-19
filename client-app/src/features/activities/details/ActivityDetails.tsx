@@ -3,10 +3,11 @@ import { Button, Card,Image } from 'semantic-ui-react'
 import { Activity } from '../../../app/models/activity'
 
 interface Props {
-    activity: Activity
+    activity: Activity;
+    cancelSelectActivity: () => void;
 }
 
-export const ActivityDetails = ({activity}: Props) => {
+export const ActivityDetails = ({activity, cancelSelectActivity}: Props) => {
     return (
         <Card fluid>
             <Image src={`/assets/categoryImages/${activity.category}.jpg`} />
@@ -21,7 +22,7 @@ export const ActivityDetails = ({activity}: Props) => {
                 <Card.Content extra>
                     <Button.Group widths='2'>
                         <Button basic color='blue' content='Edit' />
-                        <Button basic color='grey' content='Canel' />
+                        <Button onClick={cancelSelectActivity} basic color='grey' content='Canel' />
                     </Button.Group>
                 </Card.Content>
 
