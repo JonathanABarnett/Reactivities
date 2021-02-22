@@ -7,8 +7,11 @@ import {v4 as uuid} from 'uuid';
 import agent from '../api/agent';
 import LoadingComponents from './LoadingComponents';
 import { act } from 'react-dom/test-utils';
+import { useStore } from '../stores/store';
 
 function App() {
+const {activityStore} = useStore();
+
 const [activities, setActivities] = useState<Activity[]>([]);
 const [selectedActivity, setSelectedActivity] = useState<Activity | undefined>(undefined);
 const [editMode, setEditMode] = useState(false);
@@ -79,6 +82,7 @@ if (loading) return <LoadingComponents content='Loading app' />
     <>
       <Navbar openForm={handleFormOpen} />   
       <Container style={{marginTop: '7em'}}>
+        <h2>{activityStore.title}</h2>
         <ActivityDashboard 
         activities={activities}
         selectedActivity={selectedActivity}
