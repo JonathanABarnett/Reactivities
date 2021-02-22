@@ -1,13 +1,13 @@
 import React, { useEffect, useState} from 'react';
-import { Container} from 'semantic-ui-react';
+import { Button, Container} from 'semantic-ui-react';
 import { Activity } from '../models/activity';
 import { Navbar } from './Navbar';
 import { ActivityDashboard } from '../../features/activities/dashboard/ActivityDashboard';
 import {v4 as uuid} from 'uuid';
 import agent from '../api/agent';
 import LoadingComponents from './LoadingComponents';
-import { act } from 'react-dom/test-utils';
 import { useStore } from '../stores/store';
+import { observer } from 'mobx-react-lite';
 
 function App() {
 const {activityStore} = useStore();
@@ -83,6 +83,7 @@ if (loading) return <LoadingComponents content='Loading app' />
       <Navbar openForm={handleFormOpen} />   
       <Container style={{marginTop: '7em'}}>
         <h2>{activityStore.title}</h2>
+        <Button content="Add Exclamation!" positive onClick={activityStore.setTitle} />
         <ActivityDashboard 
         activities={activities}
         selectedActivity={selectedActivity}
@@ -100,4 +101,4 @@ if (loading) return <LoadingComponents content='Loading app' />
   );
 }
 
-export default App;
+export default observer(App);
