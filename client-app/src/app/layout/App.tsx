@@ -6,12 +6,14 @@ import { ActivityDashboard } from '../../features/activities/dashboard/ActivityD
 import {v4 as uuid} from 'uuid';
 import agent from '../api/agent';
 import LoadingComponents from './LoadingComponents';
+import { act } from 'react-dom/test-utils';
 
 function App() {
 const [activities, setActivities] = useState<Activity[]>([]);
 const [selectedActivity, setSelectedActivity] = useState<Activity | undefined>(undefined);
 const [editMode, setEditMode] = useState(false);
 const [loading, setLoading] = useState(true);
+const [submitting, setSubmitting] = useState(false);
 
 useEffect(() => {
   agent.Activities.list().then(response => {
@@ -43,10 +45,23 @@ function handleFormClose() {
 }
 
 function handleCreateOrEditActivity(activity: Activity) {
-  activity.id ? setActivities([...activities.filter(x => x.id !== activity.id), activity])
-  : setActivities([...activities, {...activity, id: uuid()}]);
-  setEditMode(false);
-  setSelectedActivity(activity);
+  setSubmitting(true);
+  if (activity.id) {
+    agent.Activities.update(activity).then(() => {
+       setActivities([...activities.filter(x => x.id !== activity.id), activity])
+       setSelectedActivity(activity);
+       setEditMode(false);
+       setSubmitting(false);
+    })
+  } else {
+    activity.id = uuid();
+    agent.Activities.create(activity).then(() => {
+      setActivities([...activities, activity])
+            setSelectedActivity(activity);
+       setEditMode(false);
+       setSubmitting(false);
+    })
+  }
 }
 
 function handleDeleteActivity(id: string) {
@@ -69,6 +84,7 @@ if (loading) return <LoadingComponents content='Loading app' />
         closeForm={handleFormClose}
         createOrEdit={handleCreateOrEditActivity}
         deleteActivity={handleDeleteActivity}
+        submitting={submitting}
         />
         </Container> 
     </>
