@@ -1,8 +1,6 @@
-import { create } from 'domain'
 import { observer } from 'mobx-react-lite'
 import React, { ChangeEvent, useState } from 'react'
 import { Button, Form, Segment } from 'semantic-ui-react'
-import { Activity } from '../../../app/models/activity'
 import { useStore } from '../../../app/stores/store'
 
 export default observer( function ActivityForm() {
