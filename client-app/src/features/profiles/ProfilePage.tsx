@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router";
 import { Grid } from "semantic-ui-react";
 import LoadingComponents from "../../app/layout/LoadingComponents";
-import { Profile } from "../../app/models/profile";
 import { useStore } from "../../app/stores/store";
 import ProfileContent from "./ProfileContent";
 import ProfileHeader from "./ProfileHeader";
@@ -18,7 +17,7 @@ export default observer(function ProfilePage() {
     return () => {
       setActiveTab(0);
     };
-  }, [loadProfile, username]);
+  }, [loadProfile, username, setActiveTab]);
 
   if (loadingProfile) {
     return <LoadingComponents content="Loading profile..." />;
