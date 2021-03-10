@@ -11,14 +11,14 @@ namespace Application.Core
         public PagedList(IEnumerable<T> items, int count, int pageNumber, int pageSize)
         {
             this.CurrentPage = pageNumber;
-            this.TotalPage = (int)Math.Ceiling(count / (double)pageSize);
+            this.TotalPages = (int)Math.Ceiling(count / (double)pageSize);
             this.PageSize = pageSize;
             this.TotalCount = count;
             AddRange(items);
 
         }
         public int CurrentPage { get; set; }
-        public int TotalPage { get; set; }
+        public int TotalPages { get; set; }
         public int PageSize { get; set; }
         public int TotalCount { get; set; }
 
